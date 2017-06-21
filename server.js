@@ -1,4 +1,5 @@
 var express     =   require("express");
+var assert = require('assert');
 var app         =   express();
 var bodyParser  =   require("body-parser");
 var router      =   express.Router();
@@ -13,19 +14,48 @@ router.get("/",function(req,res){
 
 
 router.route("/setUser").post(function(req,res){
-        var db = new mongoOp();
-        var response = {};
-				db.userID=req.body.userID;
-				db.location=req.body.location;
-			db.save(function(err){
-            if(err) {
-                response = {"error" : true,"message" : "Error adding data"};
-            } else {
-                response = {"error" : false,"message" : "Data added"};
-            }
-            res.json(response);
-        });
-    });
+	var db = new mongoOp();
+	var response = {};
+	db.userID=req.body.userID;
+	db.location=req.body.location;
+	db.save(function(err){
+		if(err) {
+			response = {"error" : true,"message" : "Error adding data"};
+				}
+		else {
+			response = {"error" : false,"message" : "Data added"};
+			} res.json(response);
+	});
+});
+
+
+
+
+
+router.route("/getUser")
+	.get(function(req,res){
+		var max = 1000;
+		var response = {};
+		mongoOp.findOne({
+			location:
+				{ $near : [ 12, 41 ] ,
+					$maxDistance: max
+				}
+		},function(err,data){
+			if(err) {
+				console.log("err= ", err);
+				response = {"error" : true,"message" : "Error fetching data"};
+			}
+			else {
+				response = {"error" : false,"message" : data};
+			}
+			res.json(response);
+		});
+	});
+
+
+
+
 
 
 
