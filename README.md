@@ -36,7 +36,7 @@ Now use postman chrome extension to save and get details of user near your area
   `  {
     	"userID" : 21,
     	"lat":26.941008,
-    	"lng":75.834271
+    	"lng":75.834272
     }`
 
  - **To get the location of all the  users near you**
