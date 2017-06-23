@@ -17,21 +17,21 @@ router.get("/",function(req,res){
 });
 
 
-router.route("/setUser").post(function(req,res){
+router.route("/setLocation").post(function(req,res){
 	var user     = new Users(); 
 	user.userID = req.body.userID; 
 	user.location    = [ req.body.lat, req.body.lng ]; 
 	user.save(function(err){
-         if(err) {
-             response = {"error" : true,"message" : "Error adding data"};
-         }
-         else {
-             response = {"error" : false,"message" : "Data added"};
-         } res.json(response);
- });
+		if(err) {
+			 response = {"error" : true,"message" : "Error adding data"};
+		}
+		else {
+			 response = {"error" : false,"message" : "Data added"};
+		} res.json(response);
+	});
 });
 
-router.route("/getUser")
+router.route("/getUsersNear")
 	.post(function(req,res){
 		console.log("request.body = ",req.body);
 		var one_meter = 1/63710;
@@ -46,59 +46,17 @@ router.route("/getUser")
 		}
 	});
 	query.exec(function (err, user) {
-  if (err) {
-    console.log("error=",err);
-    throw err;
-  }
+		if (err) {
+			console.log("error=",err);
+			throw err;
+		}
 		else{
 			response = {"error" : false,"message" : "data fetched", "users": user };
 		}res.json(response);
 	}); 
-	});
+});
 
 
-
-
-/* router.route("/setUser").post(function(req,res){
- *     var db = new users();
- *     var response = {};
- *     db.userID=req.body.userID;
- *     db.location=req.body.location;
- *     db.save(function(err){
- *         if(err) {
- *             response = {"error" : true,"message" : "Error adding data"};
- *         }
- *         else {
- *             response = {"error" : false,"message" : "Data added"};
- *         } res.json(response);
- *     });
- * });
- *  */
-
-
-
-
-/* router.route("/getUser")
- *     .get(function(req,res){
- *         var max = 1000;
- *         var response = {};
- *         users.findOne({
- *             location:
- *                 { $near : req.body.location  ,
- *                     $maxDistance: max
- *                 }
- *         },function(err,data){
- *             if(err) {
- *                 console.log("err= ", err);
- *                 response = {"error" : true,"message" : "Error fetching data"};
- *             }
- *             else {
- *                 response = {"error" : false,"message" : data};
- *             }
- *             res.json(response);
- *         });
- *     });
- *  */
 
 
 app.use('/',router);
