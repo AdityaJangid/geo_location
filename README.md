@@ -12,7 +12,7 @@ Make sure you have both the dependencies before using this API.
     
 
  - `git clone https://github.com/AdityaJangid/geo_location.git`
-`
+
  - `cd endpoints`
  
  Now install all the other third party library dependencies by running the command
