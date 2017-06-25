@@ -1,5 +1,5 @@
-# End points
-End points is a nodeJS API to save the geographical location (latitude and longitude) and userID of the user.
+# Geo Location
+Geo Location is a nodeJS API to save the geographical location (latitude and longitude) and userID of the user.
 and then retrive the list of users by providing  geographical location and desired radius.
 
 ##Dependencies:
